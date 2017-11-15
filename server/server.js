@@ -124,10 +124,22 @@ app.post(`${baseUrl}/applyPolicies`, (req, res) => {
         let searchableQuery = {deptNbr};
 
         return Policy.find(searchableQuery).then((policy) => {
-            console.debug('-----------------', policy);
-            let remarks = policy[0].policyDescription;
 
-            ele.returnable = policy[0].policyPeriod > dateDiffInDays(new Date(), new Date(ele.deliveryDate));
+            let remarks;
+            let policyPeriod;
+
+            // if existingPolicy is not found set default policy rule
+            if (typeof policy[0] === 'undefined') {
+                console.log("existing policy not found. Using Default Policy");
+                remarks = 'using default policy period';
+                policyPeriod = 30;
+            } else {
+                console.log('-----------------', policy);
+                remarks = policy[0].policyDescription;
+                policyPeriod = policy[0].policyPeriod;
+            }
+
+            ele.returnable = policyPeriod > dateDiffInDays(new Date(), new Date(ele.deliveryDate));
             ele.remarks = remarks;
 
             arrayToOutput.push(ele);
