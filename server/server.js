@@ -26,6 +26,9 @@ app.post(`${baseUrl}/policies`, (req, res) => {
 });
 
 app.get(`${baseUrl}/policies`, (req, res) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers",
+        "Origin, X-Requested-With,       Content-Type, Accept");
     Policy.find().then((policies) => {
         res.send({policies});
     }, (e) => {
