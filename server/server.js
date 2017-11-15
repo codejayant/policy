@@ -16,6 +16,8 @@ app.use(bodyParser.json());
 const baseUrl = '/order/returnOrder/returnable';
 
 app.post(`${baseUrl}/policies`, (req, res) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     let policy = new Policy(req.body);
 
     policy.save().then((doc) => {
@@ -27,8 +29,7 @@ app.post(`${baseUrl}/policies`, (req, res) => {
 
 app.get(`${baseUrl}/policies`, (req, res) => {
     res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers",
-        "Origin, X-Requested-With,       Content-Type, Accept");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     Policy.find().then((policies) => {
         res.send({policies});
     }, (e) => {
@@ -37,6 +38,8 @@ app.get(`${baseUrl}/policies`, (req, res) => {
 });
 
 app.get(`${baseUrl}/policies/nameplate/:name/deptNbr/:deptId`, (req, res) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     let nameplate = req.params.name;
     let deptNbr = req.params.deptId;
 
@@ -56,6 +59,8 @@ app.get(`${baseUrl}/policies/nameplate/:name/deptNbr/:deptId`, (req, res) => {
 });
 
 app.put(`${baseUrl}/policies`, (req, res) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     let policy = new Policy(req.body);
 
     let nameplate = policy.nameplate;
@@ -90,6 +95,8 @@ app.put(`${baseUrl}/policies`, (req, res) => {
 });
 
 app.post(`${baseUrl}/applyPolicies`, (req, res) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     let orderdata = req.body;
     console.debug("request : ", orderdata);
 
