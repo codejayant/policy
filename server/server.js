@@ -112,6 +112,11 @@ app.put(`${baseUrl}/policies`, (req, res) => {
 app.post(`${baseUrl}/applyPolicies`, (req, res) => {
     // res.header("Access-Control-Allow-Origin", "*");
     // res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+
+    console.log("================================================");
+    console.log("POLICY .........................................");
+
+
     let orderdata = req.body;
     console.debug("request : ", orderdata);
 
@@ -131,8 +136,8 @@ app.post(`${baseUrl}/applyPolicies`, (req, res) => {
             // if existingPolicy is not found set default policy rule
             if (typeof policy[0] === 'undefined') {
                 console.log("existing policy not found. Using Default Policy");
-                remarks = 'using default policy period';
                 policyPeriod = 30;
+                remarks = `using default policy period of ${policyPeriod} Days`;
             } else {
                 console.log('-----------------', policy);
                 remarks = policy[0].policyDescription;
